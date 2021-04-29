@@ -6,7 +6,7 @@ const Button = ({color, text}) => {
     }
 
     return (
-        <button onClick={addTask} className='bg-green-500 rounded shadow-md text-white px-3 py-1'>
+        <button onClick={addTask} className={`bg-${color}-500 rounded shadow-md text-white px-3 py-1`}>
             {text}
         </button>
     )
