@@ -1,8 +1,10 @@
+import Button from "./Button";
+
 const Header = ({title}) => {
     return (
-        <header className='flex justify-between items-center p-4'>
+        <header className='flex justify-between items-center py-4'>
             <h1> Task Tracker {title}</h1>
-            <button className='bg-black rounded-md text-white px-3 py-1'> Add</button>
+            <Button color='green' text='Add'/>
         </header>
     )
 }
