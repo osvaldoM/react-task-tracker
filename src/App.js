@@ -21,10 +21,16 @@ function App() {
         }
     ]);
 
+    const deleteTask = (id) => {
+        setTasks( tasks.filter(task => task.id !== id))
+    }
+
   return (
       <div className='p-4 border border-green-600 m-4'>
           <Header title='Hello' />
-          <Tasks tasks={tasks}/>
+          {
+              tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask}/> : 'Nothing to see here.'
+          }
       </div>
   );
 }
