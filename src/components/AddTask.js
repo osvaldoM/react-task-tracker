@@ -2,21 +2,25 @@ import { useState} from 'react';
 
 
 const AddTask = ({onAdd}) => {
-    const text = useFormInput('');
-    const day = useFormInput('');
-    const reminder = useFormInput('', 'checkbox');
+    const [text, setText] = useFormInput('');
+    const [day, setDay] = useFormInput('');
+    const [reminder, setReminder] = useFormInput('', 'checkbox');
 
     function useFormInput(initialValue, type= 'text'){
         const [value, setValue] = useState(initialValue);
+        const isCheckbox = type === 'checkbox';
 
         function handleChange(event) {
-            setValue(type === 'checkbox' ? event.currentTarget.checked : event.target.value);
+            setValue(isCheckbox ? event.currentTarget.checked : event.target.value);
         }
-        return {
-            value,
-            checked: value,
-            onChange: handleChange
-        }
+        return [
+            {
+                value,
+                ...( isCheckbox && {checked: value}),
+                onChange: handleChange
+            },
+            setValue
+        ]
 
     }
 
@@ -29,7 +33,9 @@ const AddTask = ({onAdd}) => {
         }
         onAdd({text: text.value, day: day.value, reminder});
 
-        event.target.reset();
+         setText('');
+         setDay('');
+         setReminder('');
     }
 
     return (
