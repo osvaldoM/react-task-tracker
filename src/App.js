@@ -16,7 +16,6 @@ function App() {
     const [tasks, setTasks] = useState([]);
 
     useEffect( () => {
-
         const  getTasks = async () => {
             const  tasksFromServer = await fetchTasks();
             setTasks(tasksFromServer);
