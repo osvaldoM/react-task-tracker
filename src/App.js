@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 
-import {addTask, deleteTask, fetchTasks, toggleTask} from "./actions/taskActions";
+import {addTask, fetchTasks} from "./actions/taskActions";
 
 import './App.css';
 import Header from "./components/Header";
@@ -16,7 +16,7 @@ function App() {
 
     const [showAddTask, setShowAddTask] = useState(false);
 
-    const storeTasks  = useSelector(state => state.tasks.items);
+    const tasks  = useSelector(state => state.tasks.items);
 
     const dispatch = useDispatch()
 
@@ -33,7 +33,7 @@ function App() {
                     <>
                         { showAddTask && <AddTask onAdd={ (task) => dispatch(addTask(task)) }/> }
                         {
-                            storeTasks.length > 0 ? <Tasks tasks={storeTasks} onDelete={(taskId) => dispatch(deleteTask(taskId))} onToggle={(task) => dispatch(toggleTask(task))} /> : 'Nothing to see here.'
+                            tasks.length > 0 ? <Tasks tasks={tasks} /> : 'Nothing to see here.'
                         }
 
                     </>

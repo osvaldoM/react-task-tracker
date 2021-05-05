@@ -5,10 +5,11 @@ export function fetchTasks() {
         try {
             const  res = await fetch('http://localhost:5000/tasks');
             const data = await res.json();
-            return dispatch({
+            dispatch({
                 type: FETCH_TASKS,
                 payload: data
             });
+            return getState().tasks;
         } catch (error) {
             console.log('there was an error')
         }
@@ -25,10 +26,11 @@ export const addTask = (task) => {
             body: JSON.stringify(task)
         })
         const newTask = await res.json();
-        return dispatch({
+        dispatch({
             type: NEW_TASK,
             payload: newTask
         });
+        return newTask;
     }
 };
 
@@ -38,7 +40,7 @@ export const deleteTask = (taskId) => {
             method: 'DELETE'
         });
         if(res) {
-            return dispatch({
+            dispatch({
                 type: DELETE_TASK,
                 payload: taskId
             })

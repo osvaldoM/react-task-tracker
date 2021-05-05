@@ -1,10 +1,14 @@
 import { useState} from 'react';
+import {addTask} from "../actions/taskActions";
+import {useDispatch} from "react-redux";
 
 
-const AddTask = ({onAdd}) => {
+const AddTask = () => {
+    const dispatch = useDispatch()
     const [text, setText] = useFormInput('');
     const [day, setDay] = useFormInput('');
     const [reminder, setReminder] = useFormInput('', 'checkbox');
+
 
     function useFormInput(initialValue, type= 'text'){
         const [value, setValue] = useState(initialValue);
@@ -31,11 +35,12 @@ const AddTask = ({onAdd}) => {
             alert('please Add a task');
             return;
         }
-        onAdd({text: text.value, day: day.value, reminder});
-
-         setText('');
-         setDay('');
-         setReminder('');
+        const task = {text: text.value, day: day.value, reminder};
+        dispatch(addTask(task)).then(res => {
+            setText('');
+            setDay('');
+            setReminder('');
+        });
     }
 
     return (
