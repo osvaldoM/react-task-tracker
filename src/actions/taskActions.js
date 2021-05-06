@@ -3,7 +3,7 @@ import {DELETE_TASK, FETCH_TASKS, NEW_TASK, TOGGLE_TASK} from "../actions/types"
 export function fetchTasks() {
     return async (dispatch, getState) => {
         try {
-            const  res = await fetch('http://localhost:5000/tasks');
+            const  res = await fetch(`${process.env.REACT_APP_API_URL}tasks`);
             const data = await res.json();
             dispatch({
                 type: FETCH_TASKS,
@@ -18,7 +18,7 @@ export function fetchTasks() {
 
 export const addTask = (task) => {
     return async (dispatch, getState) => {
-        const res = await fetch('http://localhost:5000/tasks', {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}tasks`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
@@ -36,7 +36,7 @@ export const addTask = (task) => {
 
 export const deleteTask = (taskId) => {
     return async (dispatch, getState) => {
-        const res = await fetch(`http://localhost:5000/tasks/${taskId}`, {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}tasks/${taskId}`, {
             method: 'DELETE'
         });
         if(res) {
@@ -52,7 +52,7 @@ export const deleteTask = (taskId) => {
 
 export const toggleTask = (task) => {
     return async (dispatch, getState) => {
-        const res = await fetch(`http://localhost:5000/tasks/${task.id}`, {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}tasks/${task.id}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json'
